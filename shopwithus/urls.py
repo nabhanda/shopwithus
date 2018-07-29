@@ -19,7 +19,8 @@ from category.views import CategoryListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', CategoryListView.as_view()),
+    path('', CategoryListView.as_view(), name='home'),
     path('category/', CategoryListView.as_view()),
     path('category/', include('category.urls')),
+    path('product/', include('product.urls')),
 ]
