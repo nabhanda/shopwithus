@@ -22,5 +22,5 @@ urlpatterns = [
     path('', CategoryListView.as_view(), name='home'),
     path('category/', CategoryListView.as_view()),
     path('category/', include('category.urls')),
-    path('product/', include('product.urls')),
+    path('product/', include('product.urls'), name='product'),
 ]
