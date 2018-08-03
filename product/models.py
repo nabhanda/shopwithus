@@ -20,6 +20,7 @@ class Product(models.Model):
     class Meta:
         ordering = ('-created',)
         index_together = (('id', 'slug'),)
+        get_latest_by = 'created'
 
     def __str__(self):
         return self.name
@@ -30,6 +31,5 @@ class Product(models.Model):
         super(Product, self).save(**kwargs)
 
 
-    #
-    # def get_absolute_url(self):
-    #     return reverse('category:product_details', args=[self.id, self.slug])
+    def get_absolute_url(self):
+        return reverse('product:product_details', args=[self.id, self.slug])

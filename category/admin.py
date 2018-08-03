@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Category, Subcategory
 
-
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'slug']
     prepopulated_fields = {'slug':('name',)}

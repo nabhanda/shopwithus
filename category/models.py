@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import CASCADE
+from django.urls import reverse
+
 from .utils import unique_slugify
 
 class Category(models.Model):

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{#    {% block title %}#}
+{#        {{ product.name }}#}
+{#    {% endblock %}#}
+{##}
+{% block content %}#}
+{##}
+{#    <div class="product-detail">#}
+{#        <img src="{{ product.image.url }}">#}
+{#        <h1>{{ product.name }}</h1>#}
+{#        <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>#}
+{#        <p class="price">${{ product.price }}</p>#}
+{#        {{ product.description|linebreaks }}#}
+{#    </div>#}
+
+
+
+
+{#  {% regroup product by subcategory as products_by_subcategory %}#}
+{#{% for c in products_by_subcategory %}#}
+{#  <h1>{{c.grouper}}</h1>#}
+{#  <ul>#}
+{#    {% for p in c.list %}#}
+{#      <li>{{p.name}}</li>#}
+{#    {% endfor %}#}
+{#  </ul>#}
+{#{% endfor %}#}
+{#  <br />#}
+{#    <br />#}
+{#     <div class="album py-5 bg-light">#}
+{#          <div class="container">#}
+{#              <div class="row">#}
+{##}
+{#                  {% for object in object_list %}#}
+{##}
+{#                  <div class="col-md-4">#}
+{#                <div class="card mb-4 box-shadow">#}
+{#                  <a class="nav-link" href="{{ object.get_absolute_url }}">#}
+{#                  <img class="card-img-top" src="{{ object.image.url }}" height="400" width="100"/>#}
+{#                  </a>#}
+{#                    <a class="card-body"></a>#}
+{#                    <a href="{{ object.get_absolute_url }}"><p class="card-text text-center">{{ object.name }}</p></a>#}
+{#                </div>#}
+{#                    </div>#}
+{#                    {% endfor %}#}
+{#              </div>#}
+{#          </div>#}
+{#      </div>#}
+
+{% endblock %}

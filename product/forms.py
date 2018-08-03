@@ -4,6 +4,8 @@ from category.models import Subcategory
 from .models import Product
 
 class ProductForm(forms.ModelForm):
+    image = forms.ImageField()
+
     class Meta:
         model = Product
         fields = ('category', 'subcategory', 'name', 'description', 'image', 'price', 'stock', 'available')
