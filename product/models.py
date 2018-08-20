@@ -5,6 +5,31 @@ from django.urls import reverse
 from category.models import Subcategory, Category
 from category.utils import unique_slugify
 
+# class ProductQuerySet(models.query.QuerySet):
+#     def available(self):
+#         return self.filter(available=True)
+#
+# class ProductManager(models.Manager):
+#     def get_queryset(self):
+#         return ProductQuerySet(self.model, using=self._db)
+#
+#     def all(self):
+#         return self.get_queryset().available()
+#
+#     def get_by_id(self, id):
+#         qs = self.get_queryset().filter(id=id)
+#         if qs.count() == 1:
+#             return qs.first()
+#         return None
+
+
+class ProductManager(models.Manager):
+    def get_by_id(self, id):
+        qs = self.get_queryset().filter(id=id)
+        if qs.count() == 1:
+            return qs.first()
+        return None
+
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=CASCADE)
     subcategory = models.ForeignKey(Subcategory, related_name='products', on_delete=CASCADE)
@@ -17,10 +42,15 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    objects = ProductManager()
+
     class Meta:
         ordering = ('-created',)
         index_together = (('id', 'slug'),)
         get_latest_by = 'created'
+
+    def get_absolute_url(self):
+        return "/product/{slug}/".format(slug=self.slug)
 
     def __str__(self):
         return self.name
@@ -31,5 +61,5 @@ class Product(models.Model):
         super(Product, self).save(**kwargs)
 
 
-    def get_absolute_url(self):
-        return reverse('product:product_details', args=[self.id, self.slug])
+    # def get_absolute_url(self):
+    #     return reverse('product:detail', args=[self.id, self.slug])

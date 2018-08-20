@@ -18,7 +18,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from carts.views import cart_home
 from category.views import CategoryListView
 
 urlpatterns = [
@@ -27,5 +26,5 @@ urlpatterns = [
     path('category/', CategoryListView.as_view()),
     path('category/', include('category.urls')),
     path('product/', include('product.urls'), name='product'),
-    path('cart/', cart_home, name='cart'),
+    path('cart/', include('carts.urls'), name='cart'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

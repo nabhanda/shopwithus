@@ -26,7 +26,7 @@ class Category(models.Model):
          super(Category, self).save(**kwargs)
 
 class Subcategory(models.Model):
-     category = models.ForeignKey(Category, related_name='subcategory', on_delete=CASCADE)
+     category = models.ForeignKey(Category, on_delete=CASCADE)
      image = models.ImageField(upload_to='images/', blank=True)
      name = models.CharField(max_length=200, db_index=True)
      slug = models.SlugField(max_length=200, db_index=True, blank=True)

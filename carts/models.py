@@ -56,7 +56,10 @@ def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
 m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.product.through)
 
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
-    instance.total = instance.subtotal +50 #shipping charge
+    if instance.subtotal > 0:
+        instance.total = instance.subtotal +50 #shipping charge
+    else:
+        instance.total = 0
 
 pre_save.connect(pre_save_cart_receiver, sender=Cart)
 

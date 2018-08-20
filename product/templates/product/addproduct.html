@@ -8,6 +8,6 @@
       {{ form.as_table }}
     </table>
     <button type="submit">Add</button>
-    <a href="{% url 'product_changelist' %}">Nevermind</a>
+    <a href="{% url 'product_changelist' product.id %}">Nevermind</a>
   </form>
 {% endblock %}

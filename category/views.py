@@ -9,6 +9,7 @@ class CategoryListView(ListView):
     queryset = Category.objects.all()
     template_name = 'category/home.html'
 
+
 class SubcategoryListView(ListView):
     template_name = 'category/subcategory.html'
 
