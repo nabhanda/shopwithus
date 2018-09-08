@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, request
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
@@ -6,6 +6,7 @@ from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from category.models import Subcategory
 from product.forms import ProductForm
 from product.models import Product
+from carts.models import Cart
 
 
 ##############THis is for the Product Add page#################
@@ -17,14 +18,19 @@ from product.models import Product
 
 class ProductListView(ListView):
     queryset = Product.objects.all()
-    template_name = "product_list.html"
+    template_name = "product/product_list.html"
+
+    def get_queryset(self):
+        return Product.objects.filter(subcategory__slug__contains=self.kwargs['slug'])
 
 class ProductDetailView(DetailView):
     queryset = Product.objects.all()
-    template_name = "product_detail.html"
+    template_name = "product/product_detail.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+        cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+        context['cart'] = cart_obj
         print(context)
         return context
 
@@ -75,7 +81,8 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    success_url = reverse_lazy('product_changelist')
+    template_name = "product/product_form.html"
+    success_url = reverse_lazy('home')
 
 def productlist(request, product_id):
     product = Product.objects.get(productid=product_id)

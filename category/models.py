@@ -36,6 +36,9 @@ class Subcategory(models.Model):
          verbose_name = 'subcategory'
          verbose_name_plural = 'subcategories'
 
+     def get_absolute_url(self):
+         return '/category/subcategory/{slug}/'.format(slug=self.slug)
+
      def __str__(self):
          return self.name
 

@@ -16,6 +16,13 @@ class SubcategoryListView(ListView):
     def get_queryset(self):
         return Subcategory.objects.filter(category__slug=self.kwargs['slug'])
 
+class ProductListView(ListView):
+    # queryset = Product.objects.all()
+    template_name = "product/product_list.html"
+
+    def get_queryset(self):
+        return Product.objects.filter(subcategory__slug__contains=self.kwargs['slug'])
+
 
 
 # class ProdDetailListView(ListView):

@@ -1,34 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <br />
-<br />
-<br />
-<br />
+       <br /><br /><br /><br />
 
-    {{ object.name }}
-    <br />
-    {{ object.description }}
+    <div class="album py-5 bg-light">
+          <div class="container">
+              <div class="row">
 
-{#    <div class="album py-5 bg-light">#}
-{#          <div class="container">#}
-{#              <div class="row">#}
-{##}
-{#                  {% for object in object_list %}#}
-{##}
-{#                  <div class="col-md-4">#}
-{#                <div class="card mb-4 box-shadow">#}
-{#                  <a class="nav-link" href="{{ object.get_absolute_url }}">#}
-{#                  <img class="card-img-top" src="{{ object.image }}" height="400" width="100"/>#}
-{#                  </a>#}
-{#                    <a class="card-body"></a>#}
-{#                    <a href="{{ object.get_absolute_url }}"><p class="card-text text-center">{{ object.name }}</p></a>#}
-{#                </div>#}
-{#                    </div>#}
-{#                    {% endfor %}#}
-{#              </div>#}
-{#          </div>#}
-{#      </div>#}
+                  <tr>
+                  <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                  <a class="nav-link">
+                  <img class="card-img-top" src="{{ object.image.url }}" height="400" width="100"/>
+                  </a>
+                    <a class="card-body"></a>
+                    <a><p class="card-text text-center">{{ object.name }}</p></a>
+                </div>
+                    </div>
+                  </tr>
+                  <div class='col-12 col-md-6'>
+                  {% include 'product/update_cart.html' with product=object cart=cart %}
+                  <tr>
+                     <td><b>Description: </b>{{ object.description|linebreaks }}</td>
+                     <p><td><b>Price: </b>₹{{ object.price }}</td></p>
+                     <p><td><b>Stock: </b>{{ object.stock }}</td></p>
+                     <p><td><b>Available: </b>{{ object.available|yesno }}</td></p>
+                     <p><td><b>Created On: </b> {{ object.created|timesince }}</td></p>
+                  </tr>
+                      </div>
+
+              </div>
+          </div>
+      </div>
 
 {% endblock %}
 
