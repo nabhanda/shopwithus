@@ -38,15 +38,15 @@
               <a class="nav-link" href="{% url 'product_add' %}">Add Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'cart' %}">{{ request.session.cart_items }}<i class="fa fa-shopping-cart" style="font-size:35px;color:white; aria-hidden="true"></i> </a>
+              <a class="nav-link" href="{% url 'cart' %}">{{ request.session.cart_items }}<i class="fa fa-shopping-cart" style="font-size:35px; color:white; aria-hidden:true;" ></i> </a>
 {#                <img src="{% static 'cart-icon.jpg' %}" class="d-inline-block align-top" />#}
 
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Login <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sign up</a>
+              <a class="nav-link" href="{% url 'register' %}">Sign up</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Help Center</a>
