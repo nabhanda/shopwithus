@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'carts.apps.CartsConfig',
     'orders.apps.OrdersConfig',
     'accounts.apps.AccountsConfig',
+    'billing.apps.BillingConfig',
+    'addresses.apps.AddressesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 ROOT_URLCONF = 'shopwithus.urls'
 
 TEMPLATES = [

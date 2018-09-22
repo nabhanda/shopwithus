@@ -19,10 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from category.views import CategoryListView
+from addresses.views import checkout_address_create_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CategoryListView.as_view(), name='home'),
+    path('checkout/address/create', checkout_address_create_view, name='checkout_address_create'),
     path('category/', CategoryListView.as_view()),
     path('category/', include('category.urls')),
     path('product/', include('product.urls'), name='product'),

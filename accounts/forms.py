@@ -35,6 +35,9 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("Email has to be gmail.com")
         return email
 
+class GuestForm(forms.Form):
+    email = forms.EmailField()
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
