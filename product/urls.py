@@ -9,7 +9,7 @@ from . import views
 
 urlpatterns = [
     path('add/', ProductCreateView.as_view(), name='product_add'),
-    url(r'^(?P<slug>[\w-]+)/$', ProductDetailView.as_view()),
+    url(r'^(?P<slug>[\w-]+)/$', ProductDetailView.as_view(), name='proddetail'),
     #url(r'^$', ProductListView.as_view()),
     #url(r'^(?P<pk>\d+)/$', ProductDetailView.as_view()),
     path('<int:pk>/', views.ProductUpdateView.as_view(), name='product_change'),

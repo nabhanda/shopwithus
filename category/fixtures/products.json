@@ -1,0 +1,149 @@
+[
+{
+    "model": "category.category",
+    "pk": 1,
+    "fields": {
+        "image": "images/Men_Ci48Pbe.jpg",
+        "name": "Men",
+        "slug": "men"
+    }
+},
+{
+    "model": "category.category",
+    "pk": 2,
+    "fields": {
+        "image": "images/Women_d2mxGOA.jpg",
+        "name": "Women",
+        "slug": "women"
+    }
+},
+{
+    "model": "category.category",
+    "pk": 3,
+    "fields": {
+        "image": "images/Kids.jpg",
+        "name": "Kids",
+        "slug": "kids"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 1,
+    "fields": {
+        "category": 1,
+        "image": "images/MenJeans.jpg",
+        "name": "Jeans",
+        "slug": "jeans-men"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 2,
+    "fields": {
+        "category": 1,
+        "image": "images/MenPants.jpg",
+        "name": "Pants",
+        "slug": "pants-men"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 3,
+    "fields": {
+        "category": 1,
+        "image": "images/MenShirts.jpg",
+        "name": "Shirts",
+        "slug": "shirts-men"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 4,
+    "fields": {
+        "category": 1,
+        "image": "images/MenTShirts.jpg",
+        "name": "T-Shirts",
+        "slug": "t-shirts-men"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 5,
+    "fields": {
+        "category": 2,
+        "image": "images/WomenSarees.jpg",
+        "name": "Sarees",
+        "slug": "sarees-women"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 6,
+    "fields": {
+        "category": 2,
+        "image": "images/WomenJeans.jpg",
+        "name": "Jeans",
+        "slug": "jeans-women"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 7,
+    "fields": {
+        "category": 2,
+        "image": "images/WomenTops.jpg",
+        "name": "Tops",
+        "slug": "tops-women"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 8,
+    "fields": {
+        "category": 2,
+        "image": "images/WomenSalwarSuit.jpg",
+        "name": "SalwarSuits",
+        "slug": "salwarsuits-women"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 9,
+    "fields": {
+        "category": 3,
+        "image": "images/kidsFrocks.jpg",
+        "name": "Frocks",
+        "slug": "frocks-kids"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 10,
+    "fields": {
+        "category": 3,
+        "image": "images/KidsJeans.jpg",
+        "name": "Jeans",
+        "slug": "jeans-kids"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 11,
+    "fields": {
+        "category": 3,
+        "image": "images/KidsDresses.jpg",
+        "name": "Dresses",
+        "slug": "dresses-kids"
+    }
+},
+{
+    "model": "category.subcategory",
+    "pk": 12,
+    "fields": {
+        "category": 3,
+        "image": "images/KidsTShirts.jpg",
+        "name": "T-Shirts",
+        "slug": "t-shirts-kids"
+    }
+}
+]

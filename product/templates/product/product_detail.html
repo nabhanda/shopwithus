@@ -11,7 +11,11 @@
                   <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                   <a class="nav-link">
+                    {% if object.image %}
                   <img class="card-img-top" src="{{ object.image.url }}" height="400" width="100"/>
+                     {% else %}
+                        <h5>No Image</h5>
+                      {% endif %}
                   </a>
                     <a class="card-body"></a>
                     <a><p class="card-text text-center">{{ object.name }}</p></a>

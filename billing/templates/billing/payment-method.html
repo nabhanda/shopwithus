@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br /><br /><br /><br />
+
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- js Render -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.88/jsrender.min.js"></script>
+
+
+<style>
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+</style>
+
+<div class="col-10 col-md-6 mx-auto">
+<h1>Add Payment123 Method</h1>
+<div class="stripe-payment-form" data-token="{{ publish_key }}" data-next-url="{% if next_url %}{{ next_url }}{% endif%}"></div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{% verbatim %}
+<script id="stripeTemplate" type="text/x-jsrender">
+    <form class='payment-form' action="" method="post" id="payment-form" data-token="{{:publish_key}}" data-next-url="{{:next_url}}">
+    <div class="form-row">
+        <div id="card-element" class="form-control">
+
+        </div>
+
+        <div id="card-errors" role="alert"></div>
+    </div>
+
+    <button class="htn btn-primary my-3">Add Payment Method</button>
+
+    </form>
+
+</script>
+{% endverbatim %}
+
+<script>
+$(document).ready(function () {
+
+var stripeFormModule = $(".stripe-payment-form")
+var stripeModuleToken = stripeFormModule.attr("data-token")
+var stripeModuleNextUrl = stripeFormModule.attr("data-next-url")
+
+var stripeTemplate = $.templates("#stripeTemplate")
+var stripeTemplateDataContext = {
+    publish_key: stripeModuleToken,
+    next_url: stripeModuleNextUrl
+}
+var stripeTemplateHtml = stripeTemplate.render(stripeTemplateDataContext)
+stripeFormModule.html(stripeTemplateHtml)
+
+var paymentForm = $(".payment-form")
+if(paymentForm.length > 1){
+    alert("Only one payment form is allowed per page")
+    paymentForm.css('display', 'none')
+}
+else if (paymentForm.length == 1) {
+
+    var pubKey = paymentForm.attr('data-token')
+    var nextUrl = paymentForm.attr('data-next-url')
+
+    var stripe = Stripe(pubKey);
+
+
+    var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+        base: {
+            color: '#32325d',
+            lineHeight: '18px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+// Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+// Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(nextUrl, result.token);
+            }
+        });
+    });
+
+    function redirectToNext(nextPath, timeoffset) {
+        if (nextPath) {
+            setTimeout(function () {
+                window.location.href = nextPath
+            }, timeoffset)
+        }
+    }
+
+    function stripeTokenHandler(nextUrl, token) {
+        //console.log(token)
+        var paymentMethodEndpoint = '/billing/payment-method/create'
+        var data = {
+            'token': token.id
+        }
+        $.ajax({
+            data: data,
+            url: paymentMethodEndpoint,
+            method: "POST",
+            success: function (data) {
+                var successMsg = data.message || "Success! Your card is added."
+                card.clear()
+                if (nextUrl) {
+                    successMsg = successMsg + "<br /><br /><br /><i class='fa fa-spin fa-spinner'></i> Redirecting... Please Wait"
+                }
+                if ($.alert) {
+                    $.alert(successMsg)
+                } else {
+                    alert(successMsg)
+                }
+                redirectToNext(nextUrl, 1500)
+            },
+            error: function (errror) {
+                console.log(error)
+            }
+        })
+    }
+}
+})
+</script>
+
+
+{% endblock %}

@@ -29,17 +29,19 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <form method="GET" action="{% url 'query' %}" class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="q" aria-label="Search" value="{{ request.GET.q }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
           <ul class="navbar-nav ml-auto">
+          {% if request.user.is_staff %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'product_add' %}">Add Product</a>
             </li>
+          {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'cart' %}">{{ request.session.cart_items }}<i class="fa fa-shopping-cart" style="font-size:35px; color:white; aria-hidden:true;" ></i> </a>
-{#                <img src="{% static 'cart-icon.jpg' %}" class="d-inline-block align-top" />#}
+{#                <img src="{% static_my_proj 'cart-icon.jpg' %}" class="d-inline-block align-top" />#}
             </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item {% if request.path == logout_url %}active{% endif %}">
@@ -53,6 +55,12 @@
               <a class="nav-link" href="{% url 'register' %}">Sign up</a>
             </li>
             {% endif %}
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+              <a class="nav-link">Welcome {{ request.user.full_name }}</a>
+          {% else %}
+              <a class="nav-link">Welcome Guest</a>
+          {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="#">Help Center</a>
             </li>
@@ -71,7 +79,9 @@
          <br /><br /><br /><br />
 
     </div>
+    {% block javascript %}
 
+    {% endblock %}
 
       <!-- FOOTER -->
       <footer class="container">

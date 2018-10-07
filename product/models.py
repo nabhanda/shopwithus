@@ -1,13 +1,23 @@
 from django.db import models
-from django.db.models import CASCADE
+from django.db.models import CASCADE, Q
 from django.urls import reverse
 
 from category.models import Subcategory, Category
 from category.utils import unique_slugify
 
-# class ProductQuerySet(models.query.QuerySet):
-#     def available(self):
-#         return self.filter(available=True)
+class ProductQuerySet(models.query.QuerySet):
+    def available(self):
+        return self.filter(available=True)
+
+    def search(self, query):
+        lookups = (Q(name__icontains=query) |
+                   Q(description__icontains=query) |
+                   Q(price__icontains=query)
+                   # Q(category__icontains=query) |
+                   # Q(subcategory__icontains=query)
+                   )
+        # tshirt, t-shirt, t shirt, red, green, blue,
+        return self.filter(lookups).distinct()
 #
 # class ProductManager(models.Manager):
 #     def get_queryset(self):
@@ -24,11 +34,20 @@ from category.utils import unique_slugify
 
 
 class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().available()
+
     def get_by_id(self, id):
         qs = self.get_queryset().filter(id=id)
         if qs.count() == 1:
             return qs.first()
         return None
+
+    def search(self, query):
+        return self.get_queryset().available().search(query)
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=CASCADE)

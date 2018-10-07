@@ -12,7 +12,9 @@
                   <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                   <a class="nav-link" href="{{ object.get_absolute_url }}">
+                      {% if object.image %}
                   <img class="card-img-top" src="{{ object.image.url }}" height="400" width="100"/>
+                      {% endif %}
                   </a>
                     <a class="card-body"></a>
                     <a href="{{ object.get_absolute_url }}"><p class="card-text text-center">{{ object.name }}</p></a>

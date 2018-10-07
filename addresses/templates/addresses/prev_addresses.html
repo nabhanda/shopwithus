@@ -7,8 +7,9 @@
         <input type="hidden" name="address_type" value="{{ address_type }}"/>
     {% endif %}
 
-    {% for address in address_qs %}
-        <label for="address-{{ address.id }}">
+    {% for address in address_qs|dictsort:'address_line1' %}
+        <label for="address-{{ address.id  }}">
+        {% ifchanged %}{{address.id.address_line1}}{% endifchanged %}
             <input id="address-{{ address.id }}" type="radio" name="shipping_address" value="{{ address.id }}" />
             {{ address.address_line1 }}
         </label><br />

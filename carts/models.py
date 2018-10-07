@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.db.models import CASCADE
-from django.db.models.signals import m2m_changed, pre_save
+from django.db.models.signals import m2m_changed, pre_save, post_save
 
 from product.models import Product
 
