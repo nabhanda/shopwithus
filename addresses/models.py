@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import CASCADE
 
@@ -16,7 +17,7 @@ class Address(models.Model):
     city = models.CharField(max_length=120)
     state = models.CharField(max_length=120)
     country = models.CharField(max_length=120, default="India")
-    postal_code = models.CharField(max_length=6)
+    postal_code = models.CharField(max_length=6, validators=[RegexValidator(r'^\d{1,6}$')])
 
     def __str__(self):
         return str(self.billing_profile)

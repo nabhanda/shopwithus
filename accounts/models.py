@@ -1,3 +1,4 @@
+from django.core.validators import validate_email
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -42,7 +43,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=True, validators=[validate_email])
     full_name = models.CharField(max_length=255, blank=True, null=True)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
@@ -95,7 +96,7 @@ class User(AbstractBaseUser):
 
 
 class GuestEmail(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(max_length=255, unique=True, validators=[validate_email])
     activate = models.BooleanField(default=True)
     update = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)

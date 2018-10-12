@@ -11,7 +11,7 @@ def payment_method_view(request):
     next_ = request.GET.get('next')
     if is_safe_url(next_, request.get_host()):
         next_url = next_
-    return render(request, 'billing/payment-method.html', {"publish_key": STRIPE_PUB_KEY})
+    return render(request, 'carts/checkout-done.html', {"publish_key": STRIPE_PUB_KEY})
 
 def payment_method_createview(request):
     if request.method == 'POST' and request.is_ajax():

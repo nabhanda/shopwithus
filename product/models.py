@@ -1,6 +1,8 @@
+from django.contrib.sessions import serializers
 from django.db import models
 from django.db.models import CASCADE, Q
 from django.urls import reverse
+from django.utils.functional import empty
 
 from category.models import Subcategory, Category
 from category.utils import unique_slugify
@@ -57,7 +59,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
     description = models.TextField(blank=True)
     price = models.IntegerField(default=0)
-    stock = models.PositiveIntegerField()
+    stock = models.PositiveIntegerField(blank=False,default=1)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -82,3 +84,18 @@ class Product(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse('product:detail', args=[self.id, self.slug])
+
+# class AddProductToCartSerializer(AddToCartSerializer):
+#     stock = serializers.PositiveIntegerField(read_only=True)
+#
+#     def get_instance(self, context, data, extra_args):
+#         product = context['product']
+#         product.refresh_from_db()
+#         if data != empty:
+#             quantity = data.get('quantity', self.fields['quantity'].default)
+#             data['quantity'] = min(int(quantity), product.amount_in_stock)
+#         instance = super().get_instance(context, data, extra_args)
+#         instance.update(
+#             stock=product.stock,
+#         )
+#         return instance
